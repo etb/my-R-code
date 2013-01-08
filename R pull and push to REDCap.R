@@ -2,10 +2,9 @@
 #####       Author: etb                                   ####
 #####       Date Created: Tue Jan 8  1:04:00PM 2013       ####
 #####       Version 0.1                                   ####
-#####       The scrips: Demonstates how to pull and push  ####
+#####       The scrips: Demonstrates how to pull and push ####
 #####                   data from a REDCap server using R ####
 ##############################################################
-
 
 ####################################################################
 ##                                                                ##
@@ -13,8 +12,8 @@
 ##                                                                ##
 # setwd('/.../')
 
-# read your certificate, ask your REDCap provider about obterining this.
-# If you are on a closed network you can turn this efture of by changing,
+# read your certificate, ask your REDCap provider about obtaining this.
+# If you are on a closed network you can turn this feature of by changing,
 # ".opts=curlOptions(ssl.verifypeer=TRUE, cainfo=REDCap.crt)" to 
 # ".opts=curlOptions(ssl.verifypeer=FALSE)" I added the 
 # "verbose=FALSE" to the code to make it esey to siwch this to TRUE and
@@ -24,7 +23,7 @@ REDCap.crt <- '/.../[some file name].cert'
 # Your REDCap issued token, I read mine from a text file
 Redcap.token <- readLines("/.../Redcap.token.txt") # Read API token from folder
 
-# REDCAp site API-URL, vil mostlike be the site where you normally login + api
+# REDCAp site API-URL, will most likely be the REDCap site where you normally login + api
 REDcap.URL  <- ''
 
 ####################################################################
@@ -86,7 +85,8 @@ ParseRtoREDCap <- function(df) {
 
 API.OUT <- ParseRtoREDCap(data)
 
-# Heavily inspired by this http://stackoverflow.com/a/12435389/1305688# answer at SO, thanks to Josh O'Brien. 
+# Heavily inspired by this http://stackoverflow.com/a/12435389/1305688
+# answer at SO, thanks to Josh O'Brien. 
 ####################################################################
 ##                                                                ##
 ##                  Push files to REDCap                          ##
@@ -99,7 +99,7 @@ cat(postForm(REDcap.URL, data=API.OUT, token=Redcap.token, content="record",
 type="flat", format="csv",returnFormat="csv", overwriteBehavior="overwrite", 
 .opts=curlOptions(ssl.verifypeer=TRUE, cainfo=REDCap.crt, verbose=FALSE)))
 
-# If you wish to push .pdf filers you can use this methomd. Note that
+# If you wish to push .pdf filers you can use this method. Note that
 # you need to define an event, see [some event].
 
 cat(postForm(REDcap.URL, token=Redcap.token, content="file", action="import", 
