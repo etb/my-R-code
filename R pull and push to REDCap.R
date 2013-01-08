@@ -1,9 +1,17 @@
+##############################################################
+#####       Author: Esben Baek                            ####
+#####       Date Created: Tue Jan 8  1:04:00PM 2013       ####
+#####       Version 0.1                                   ####
+#####       The scrips: Demonstates how to pull and push  ####
+#####                   data from a REDCap server using R ####
+##############################################################
+
+
 ####################################################################
 ##                                                                ##
 ##            Define Parameters, token and REDCap url             ##
 ##                                                                ##
-setwd('/.../')
-
+# setwd('/.../')
 
 # read your certificate, ask your REDCap provider about obterining this.
 # If you are on a closed network you can turn this efture of by changing,
@@ -12,7 +20,6 @@ setwd('/.../')
 # "verbose=FALSE" to the code to make it esey to siwch this to TRUE and
 # get a better understanindg of what RCurl is doing.
 REDCap.crt <- '/.../[some file name].cert'
-
 
 # Your REDCap issued token, I read mine from a text file
 Redcap.token <- readLines("/.../Redcap.token.txt") # Read API token from keys folder
@@ -26,25 +33,34 @@ REDcap.URL  <- ''
 ##                                                                ##
 require(RCurl)
 
-RAW.API <- postForm(REDcap.URL, token=Redcap.token, content="record", type="flat", format="csv", rawOrLabel="Label", .opts=curlOptions(ssl.verifypeer=TRUE, cainfo=REDCap.crt, verbose=FALSE))
+RAW.API <- postForm(REDcap.URL, token=Redcap.token, content="record", 
+           type="flat", format="csv", rawOrLabel="Label", 
+           .opts=curlOptions(ssl.verifypeer=TRUE, cainfo=REDCap.crt, 
+           verbose=FALSE))
 
 ####################################################################
 ##                                                                ##
 ##      Transform and subset data workable R data frame           ##
 ##                                                                ##
-####################################################################
-Rawdata <- read.table(file = textConnection(RAW.API), header = TRUE, sep = ",", na.strings = "", stringsAsFactors = FALSE)
+Rawdata <- read.table(file = textConnection(RAW.API), header = TRUE, 
+                      sep = ",", na.strings = "", stringsAsFactors = FALSE)
 rm(RAW.API)
 data <- Rawdata
 
 ####################################################################
 ##                                                                ##
+##      Your R thing ...                                          ##
+##                                                                ##
+...
+
+####################################################################
+##                                                                ##
 ##        Parse data frame back to bizarro REDCap format          ##
 ##                                                                ##
-####################################################################
-## needs to by optimized
 
-some_magic <- function(df) {
+# This function needs to be optimized
+
+ParseRtoREDCap <- function(df) {
     ## Replace NA with "", converting column types as needed
     df[] <- lapply(df, function(X) {
                 if(any(is.na(X))) {X[is.na(X)] <- ""; X} else {X}
@@ -68,14 +84,18 @@ some_magic <- function(df) {
     out
 }
 
-API.OUT <- some_magic(data)
+API.OUT <- ParseRtoREDCap(data)
 
+# Heavily inspired by this http://stackoverflow.com/a/12435389/1305688# answer at SO, thanks to Josh O'Brien. 
 ####################################################################
 ##                                                                ##
 ##                  Push files to REDCap                          ##
 ##                                                                ##
 
-cat(postForm(REDcap.URL, data=API.OUT, token=RC01, content="record", type="flat", format="csv",returnFormat="csv", overwriteBehavior="overwrite", .opts=curlOptions(ssl.verifypeer=FALSE)))
+# I've wrapped my 'postForm()' in a 'cat()' to make any respone from
+# the REDCap server reasdebel.
+
+cat(postForm(REDcap.URL, data=API.OUT, token=Redcap.token, content="record", type="flat", format="csv",returnFormat="csv", overwriteBehavior="overwrite", .opts=curlOptions(ssl.verifypeer=TRUE, cainfo=REDCap.crt, verbose=FALSE)))
 
 
 #this is how you push pdf files
