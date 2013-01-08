@@ -1,5 +1,5 @@
 ##############################################################
-#####       Author: Esben Baek                            ####
+#####       Author: etb                                   ####
 #####       Date Created: Tue Jan 8  1:04:00PM 2013       ####
 #####       Version 0.1                                   ####
 #####       The scrips: Demonstates how to pull and push  ####
@@ -22,7 +22,7 @@
 REDCap.crt <- '/.../[some file name].cert'
 
 # Your REDCap issued token, I read mine from a text file
-Redcap.token <- readLines("/.../Redcap.token.txt") # Read API token from keys folder
+Redcap.token <- readLines("/.../Redcap.token.txt") # Read API token from folder
 
 # REDCAp site API-URL, vil mostlike be the site where you normally login + api
 REDcap.URL  <- ''
@@ -95,9 +95,14 @@ API.OUT <- ParseRtoREDCap(data)
 # I've wrapped my 'postForm()' in a 'cat()' to make any respone from
 # the REDCap server reasdebel.
 
-cat(postForm(REDcap.URL, data=API.OUT, token=Redcap.token, content="record", type="flat", format="csv",returnFormat="csv", overwriteBehavior="overwrite", .opts=curlOptions(ssl.verifypeer=TRUE, cainfo=REDCap.crt, verbose=FALSE)))
+cat(postForm(REDcap.URL, data=API.OUT, token=Redcap.token, content="record", 
+type="flat", format="csv",returnFormat="csv", overwriteBehavior="overwrite", 
+.opts=curlOptions(ssl.verifypeer=TRUE, cainfo=REDCap.crt, verbose=FALSE)))
 
+# If you wish to push .pdf filers you can use this methomd. Note that
+# you need to define an event, see [some event].
 
-#this is how you push pdf files
-
-cat(postForm(REDcap.URL, token=Redcap.token, content="file", action="import", record=ID,field=PlaceInREDCap, event="referral_form_arm_1",file=fileUpload(filename = FileName, contentType = "pdf"),returnFormat="csv", .opts=curlOptions(ssl.verifypeer=TRUE, cainfo=REDCap.crt, verbose=FALSE)))
+cat(postForm(REDcap.URL, token=Redcap.token, content="file", action="import", 
+record=ID,field=PlaceInREDCap, event=[some event],file=fileUpload(filename = 
+FileName, contentType = "pdf"),returnFormat="csv", 
+.opts=curlOptions(ssl.verifypeer=TRUE, cainfo=REDCap.crt, verbose=FALSE)))
