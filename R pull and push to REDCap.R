@@ -93,7 +93,7 @@ API.OUT <- ParseRtoREDCap(data)
 ##                                                                ##
 
 # I've wrapped my 'postForm()' in a 'cat()' to make any respone from
-# the REDCap server reasdebel.
+# the REDCap server more readable.
 
 cat(postForm(REDcap.URL, data=API.OUT, token=Redcap.token, content="record", 
 type="flat", format="csv",returnFormat="csv", overwriteBehavior="overwrite", 
