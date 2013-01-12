@@ -6,7 +6,7 @@
 #####                   and merging it all to one         ####
 #####                   data frame.                       ####
 ##############################################################
-rm(list = ls(all = TRUE)) ## Clear Workspace
+# rm(list = ls(all = TRUE)) ## Clear Workspace
 
 dir <- "/../"
 
