@@ -44,6 +44,8 @@ DF.2 <- Reduce(function(x,y)merge(x,y,by='ID'),lapply(names(dfn),changenm))
 
 ## stacking the data with rbind, to Nick
 Stack <- dfn[[1]]
-for ( .df in dfn) {
+for ( .df in dfn[-1]) {
 	Stack <- rbind(Stack, .df)
 }
+
+head(Stack); tail(Stack)
