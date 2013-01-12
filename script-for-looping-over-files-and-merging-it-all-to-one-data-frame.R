@@ -16,7 +16,7 @@ fnames <- list.files(path = dir, pattern = ".csv")
 ## reading the data
 dfn = list()
 for (string in fnames){
-dfn[[string]]=read.csv(paste(dir,string,sep = ""))
+dfn[[string]]=read.csv(paste0(dir,string))
 }
 
 ## clean up
@@ -28,7 +28,7 @@ names(dfn) <- strsplit(names(dfn),".csv")
 ## merging the data frames together (traditional)
 DF.1 <- dfn[[1]]
 for ( .df in dfn) {
-	DF.1 <-merge(DF.1, .df, by.x="ID", by.y="ID", all.x=T,
+	DF.1 <- merge(DF.1, .df, by.x="ID", by.y="ID", all.x=T,
 	           suffixes=paste(":", names(dfn), sep = ""))
 }
 
@@ -41,3 +41,9 @@ for ( .df in dfn) {
     }
 
 DF.2 <- Reduce(function(x,y)merge(x,y,by='ID'),lapply(names(dfn),changenm))
+
+## stacking the data with rbind, to Nick
+Stack <- dfn[[1]]
+for ( .df in dfn) {
+	Stack <- rbind(Stack, .df)
+}
