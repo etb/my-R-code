@@ -10,3 +10,8 @@ install.packages("Hmisc", dependencies = TRUE)
 
 ## List the Files in a Directory/Folder
 list.files(pattern = "*.txt")
+
+
+ptm <- proc.time() 
+2+2
+print(proc.time() - ptm)
