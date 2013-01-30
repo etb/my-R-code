@@ -16,3 +16,8 @@ list.files(pattern = "*.txt")
 ptm <- proc.time() 
 2+2
 print(proc.time() - ptm)
+
+
+pcon <- pipe("pbpaste")
+df <- read.table(pcon, , header = T)
+dput(df)
