@@ -32,6 +32,20 @@ for ( .df in dfn) {
 	           suffixes=paste(":", names(dfn), sep = ""))
 }
 
+
+# work in progress 
+df <- a[[1]]
+a <- a[setdiff(names(a), names(a[1]))]
+
+for(i in seq_along(a)) {
+   v <- a[[i]]     # extract value
+   ns <- names(a)
+   n <- ns[[i]]    # extract name
+   df <-merge(df, v, by.x="id", by.y="id", all.x=T, 
+              suffixes=c("", paste(".", n, sep = "")))
+}
+df
+
 ##  merge with uniqe suffix' (merging with function)
     changenm = function(nm){
         df = dfn[[nm]]
