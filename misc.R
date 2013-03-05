@@ -1,5 +1,5 @@
 # rm(list = ls(all = TRUE)) ## Clear workspace
-  sessionInfo()
+sessionInfo()
 
 options(repos=c("http://cran.at.r-project.org/"))
 # chooseCRANmirror(graphics = FALSE)
