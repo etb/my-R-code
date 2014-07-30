@@ -8,6 +8,7 @@ options(repos=c("http://cran.at.r-project.org/"))
 install.packages("Hmisc", dependencies = TRUE)
  # install.packages(c("psych", "ggplot2"), dependencies = TRUE)
 # update.packages()
+# require(ggplot2)
 
 ## List the Files in a Directory/Folder
 list.files(pattern = "*.txt")
