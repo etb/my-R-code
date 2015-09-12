@@ -46,7 +46,7 @@ g_x <- format(g_x, nsmall = 10)
 ##                                                                ##
 ##            Display data (table 1.1. p. 4)                      ##
 ##                                                                ##
-iteration_no <- 0:12
+iteration_no <- 0:(N-1)
 df <- data.frame(iteration_no, f_x, g_x)
 df
 
@@ -170,3 +170,32 @@ logistic_growth_map(r=3.3,x_o=0.2, N=7)
 
 # plot
 logistic_growth_map(r=3.3,x_o=0.2, N=40)
+
+####################################################################
+##                                                                ##
+##            raw data                                            ##
+##                                                                ##
+
+r=3.3
+x_o=0.2
+N=40
+
+pp_x <- array(dim=N)
+pp_x[1] <- x_o
+for(i in 2:N)
+pp_x[i]<-r*pp_x[i-1]*(1-pp_x[i-1])
+pp_x <- format(pp_x, nsmall = 20)
+iteration_no <- 0:(N-1)
+
+data.frame(iteration_no, pp_x)
+
+N=400
+
+pp_x <- array(dim=N)
+pp_x[1] <- x_o
+for(i in 2:N)
+pp_x[i]<-r*pp_x[i-1]*(1-pp_x[i-1])
+pp_x <- format(pp_x, nsmall = 20)
+iteration_no <- 0:(N-1)
+
+tail(data.frame(iteration_no, pp_x))
