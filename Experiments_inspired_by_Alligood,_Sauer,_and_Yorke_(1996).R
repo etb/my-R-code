@@ -199,3 +199,61 @@ pp_x <- format(pp_x, nsmall = 20)
 iteration_no <- 0:(N-1)
 
 tail(data.frame(iteration_no, pp_x))
+
+####################################################################
+##                                                                ##
+##      COMPUTER EXPERIMENT 1.2 (Alligood and Sauer, 1996:16)     ##
+##                                                                ##
+# Write a computer program with the goal of redoing Table 1.2 for 
+# the logistic map ga(x) = ax(1 - x), using a = 3.5. What 
+# periodic behavior wins out in the long run? Try several 
+# different initial conditions to explore the basin of the 
+# attracting periodic behavior. Then try different values of 
+# a < 3.57 and report your results.
+
+EXPERIMENT12 <- function(r=3.3, x_o=.2, N=0, dec=20) {
+    pp_x <- array(dim=N)
+    pp_x[1] <- x_o
+    for(i in 2:N)
+    pp_x[i]<-r*pp_x[i-1]*(1-pp_x[i-1])
+    iteration_no <- 0:(N-1)
+    g_hat_n_x <- format(round(pp_x, dec), nsmall = dec)
+    data.frame(iteration_no, g_hat_n_x)
+ }
+# EXPERIMENT12(r=3.3, x_o=0.5, N=14+1, dec=4)
+
+a <- 3.3
+iter <- 14+1
+decimals <- 4
+
+g_hat_020 <- EXPERIMENT12(r=a, x_o=0.2, N=iter, dec=decimals)
+g_hat_050 <- EXPERIMENT12(r=a, x_o=0.5, N=iter, dec=decimals)
+g_hat_095 <- EXPERIMENT12(r=a, x_o=0.95, N=iter, dec=decimals)
+
+# redoing Table 1.2 
+data.frame(n = g_hat_020[,1], gn02 = g_hat_020[,2], gn05 = g_hat_050[,2], gn095 = g_hat_095[,2])
+
+# what hapens in a longer run
+
+a <- 3.3
+iter <- 1400+1
+decimals <- 4
+
+g_hat_020 <- EXPERIMENT12(r=a, x_o=0.2, N=iter, dec= decimals)
+g_hat_050 <- EXPERIMENT12(r=a, x_o=0.5, N=iter, dec= decimals)
+g_hat_095 <- EXPERIMENT12(r=a, x_o=0.95, N=iter, dec= decimals)
+
+# tail of longer run 
+tail(data.frame(n = g_hat_020[,1], gn02 = g_hat_020[,2], gn05 = g_hat_050[,2], gn095 = g_hat_095[,2]))
+# all
+# data.frame(n = g_hat_020[,1], gn02 = g_hat_020[,2], gn05 = g_hat_050[,2], gn095 = g_hat_095[,2])
+
+# now with alternative a
+a <- 3.9
+iter <- 14+1
+
+g_hat_020 <- EXPERIMENT12(r=a, x_o=0.20, N=iter, dec=4)
+g_hat_050 <- EXPERIMENT12(r=a, x_o=0.50, N=iter, dec=4)
+g_hat_095 <- EXPERIMENT12(r=a, x_o=0.95, N=iter, dec=4)
+ 
+data.frame(n = g_hat_020[,1], gn02 = g_hat_020[,2], gn05 = g_hat_050[,2], gn095 = g_hat_095[,2])
