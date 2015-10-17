@@ -7,7 +7,7 @@ options(repos=c("http://cran.at.r-project.org/"))
 # install.packages(c("qgraph", "foreign", "mvbutils", "diagram", "gtools", "gdata", "reshape"))
 install.packages("Hmisc", dependencies = TRUE)
  # install.packages(c("psych", "ggplot2"), dependencies = TRUE)
-# update.packages()
+# update.packages(ask = FALSE, dependencies = c('Suggests'))
 # require(ggplot2)
 
 ## List the Files in a Directory/Folder
