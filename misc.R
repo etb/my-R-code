@@ -1,4 +1,9 @@
+# R -q
+# q('no')
 # rm(list = ls(all = TRUE)) ## Clear workspace
+# clc <- function() cat(rep("\n",50)) # funk to clear terminal
+# clc()
+
 sessionInfo()
 
 options(repos=c("http://cran.at.r-project.org/"))
